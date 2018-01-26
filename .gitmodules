@@ -1,3 +1,4 @@
-[submodule "lib"]
-	path = lib
-	url = https://github.com/jedisct1/libhydrogen/
+[submodule "lib/libhydrogen"]
+	path = lib/libhydrogen
+	url = https://github.com/jedisct1/libhydrogen
+	branch = master
