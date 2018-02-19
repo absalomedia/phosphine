@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    forceCoversAnnotation="true"
+    mapTestClassNameToCoveredClassName="true"
+    colors="true"
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    syntaxCheck="false"
+    stopOnError="false"
+>
+
+    <testsuites>
+        <testsuite name="PHPT Test suite">
+             <directory suffix=".phpt">./tests/</directory>
+        </testsuite>
+   </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+             <directory suffix=".phpt">./tests/</directory>
+        </whitelist>
+        <blacklist>
+            <directory>./tests</directory>
+            <directory>./vendor/</directory>
+        </blacklist>
+    </filter>
+   <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+    </logging>  
+</phpunit>
