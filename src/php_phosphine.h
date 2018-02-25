@@ -25,6 +25,18 @@
 zend_class_entry *phosphine_ce;
 zend_class_entry *phosphine_exception_ce;
 
+#ifdef PHP_WIN32
+# define PHP_PHOSPHINE_API __declspec(dllexport)
+#elif defined(__GNUC__) && __GNUC__ >= 4
+# define PHP_PHOSPHINE_API __attribute__ ((visibility("default")))
+#else
+# define PHP_PHOSPHINE_API
+#endif
+
+#ifdef ZTS
+# include "TSRM.h"
+#endif
+
 zend_class_entry *phosphine_get_exception_base();
 
 PHP_METHOD(Phosphine, __construct);
