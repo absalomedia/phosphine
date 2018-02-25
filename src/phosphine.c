@@ -810,15 +810,7 @@ static PHP_MINIT_FUNCTION(phosphine)
     phosphine_exception_ce = zend_register_internal_class_ex(&exception_ce, phosphine_get_exception_base(TSRMLS_C), NULL TSRMLS_CC);
     #endif
 
-    #define REGISTER_phosphine_CLASS_CONST_LONG(name, value) zend_declare_class_constant_long(phosphine_ce, ZEND_STRS( #name ) - 1, value TSRMLS_CC)
-
-    REGISTER_phosphine_CLASS_CONST_LONG(STYLE_NESTED, phosphine_STYLE_NESTED);
-    REGISTER_phosphine_CLASS_CONST_LONG(STYLE_EXPANDED, phosphine_STYLE_EXPANDED);
-    REGISTER_phosphine_CLASS_CONST_LONG(STYLE_COMPACT, phosphine_STYLE_COMPACT);
-    REGISTER_phosphine_CLASS_CONST_LONG(STYLE_COMPRESSED, phosphine_STYLE_COMPRESSED);
-
     REGISTER_STRING_CONSTANT("PHOSPHINE_FLAVOR", PHOSPHINE_FLAVOR, CONST_CS | CONST_PERSISTENT);
-
 
     return SUCCESS;
 }
