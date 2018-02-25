@@ -697,12 +697,7 @@ PHP_METHOD(phosphine, getLibraryVersion)
         RETURN_FALSE;
     }
 
-    #if ZEND_MODULE_API_NO <= 20131226
-    RETURN_STRING(libphosphine_version(), 1);
-    #endif
-
-    #if ZEND_MODULE_API_NO > 20131226
-    RETURN_STRING(libphosphine_version());
+    RETURN_STRING(HYDRO_VERSION_MAJOR+"."+HYDRO_VERSION_MINOR, 1);
     #endif
 
 }
@@ -822,7 +817,7 @@ static PHP_MINIT_FUNCTION(phosphine)
     REGISTER_phosphine_CLASS_CONST_LONG(STYLE_COMPACT, phosphine_STYLE_COMPACT);
     REGISTER_phosphine_CLASS_CONST_LONG(STYLE_COMPRESSED, phosphine_STYLE_COMPRESSED);
 
-    REGISTER_STRING_CONSTANT("phosphine_FLAVOR", phosphine_FLAVOR, CONST_CS | CONST_PERSISTENT);
+    REGISTER_STRING_CONSTANT("PHOSPHINE_FLAVOR", PHOSPHINE_FLAVOR, CONST_CS | CONST_PERSISTENT);
 
 
     return SUCCESS;
@@ -832,14 +827,16 @@ static PHP_MINFO_FUNCTION(phosphine)
 {
     php_info_print_table_start();
     php_info_print_table_row(2, "phosphine support", "enabled");
-    php_info_print_table_row(2, "version", phosphine_VERSION);
-    php_info_print_table_row(2, "flavor", phosphine_FLAVOR);
-    php_info_print_table_row(2, "libphosphine version", libphosphine_version());
+    php_info_print_table_row(2, "version", PHOSPHINE_VERSION);
+    php_info_print_table_row(2, "flavor", PHOSPHINE_FLAVOR);
+    php_info_print_table_row(2, "libhydrogen version", HYDRO_VERSION_MAJOR+"."+HYDRO_VERSION_MINOR);
     php_info_print_table_end();
 }
 
 static zend_module_entry phosphine_module_entry = {
+#if ZEND_MODULE_API_NO >= 20010901
     STANDARD_MODULE_HEADER,
+#endif
     "phosphine",
     NULL,
     PHP_MINIT(phosphine),
@@ -847,9 +844,12 @@ static zend_module_entry phosphine_module_entry = {
     NULL,
     NULL,
     PHP_MINFO(phosphine),
-    phosphine_VERSION,
+#if ZEND_MODULE_API_NO >= 20010901
+    PHOSPHINE_VERSION,
+#endif
     STANDARD_MODULE_PROPERTIES
 };
+
 
 #ifdef COMPILE_DL_phosphine
 ZEND_GET_MODULE(phosphine)
