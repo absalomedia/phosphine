@@ -66,12 +66,12 @@ static void phosphine_free_storage(zend_object *object TSRMLS_DC)
 void phosphine_free_storage(void *object TSRMLS_DC)
 {
     phosphine_object *obj = (phosphine_object *)object;
-    if (obj->include_paths != NULL)
-        efree(obj->include_paths);
-    if (obj->map_path != NULL)
-        efree(obj->map_path);
-    if (obj->map_root != NULL)
-        efree(obj->map_root);
+    if (obj->hash_object != NULL)
+        efree(obj->hash_object);
+    if (obj->kx_object != NULL)
+        efree(obj->kx_object);
+    if (obj->sign_object != NULL)
+        efree(obj->sign_object);
     zend_hash_destroy(obj->zo.properties);
     FREE_HASHTABLE(obj->zo.properties);
     efree(obj);
@@ -134,17 +134,6 @@ PHP_METHOD(phosphine, __construct)
     #if ZEND_MODULE_API_NO <= 20131226
     phosphine_object *obj = (phosphine_object *)zend_object_store_get_object(this TSRMLS_CC);
     #endif
-
-    obj->style = phosphine_STYLE_NESTED;
-    obj->include_paths = NULL;
-    obj->map_path = NULL;
-    obj->map_root = NULL;
-    obj->comments = false;
-    obj->indent = false;
-    obj->map_embed = false;
-    obj->map_contents = false;
-    obj->omit_map_url = true;
-    obj->precision = 5;
 
 }
 
@@ -899,6 +888,6 @@ static zend_module_entry phosphine_module_entry = {
 };
 
 
-#ifdef COMPILE_DL_phosphine
+#ifdef COMPILE_DL_PHOSPHINE
 ZEND_GET_MODULE(phosphine)
 #endif
