@@ -138,32 +138,28 @@ PHP_METHOD(phosphine, __construct)
 }
 
 
-void set_options(phosphine_object *this, struct phosphine_Context *ctx)
+PHP_METHOD(phosphine, u32)
 {
-    struct phosphine_Options* opts = phosphine_context_get_options(ctx);
-
-    phosphine_option_set_precision(opts, this->precision);
-    phosphine_option_set_output_style(opts, this->style);
-    phosphine_option_set_is_indented_syntax_src(opts, this->indent);
-    if (this->include_paths != NULL) {
-    phosphine_option_set_include_path(opts, this->include_paths);
-    }
-    phosphine_option_set_source_comments(opts, this->comments);
-    if (this->comments) {
-    phosphine_option_set_omit_source_map_url(opts, false);
-    }
-    phosphine_option_set_source_map_embed(opts, this->map_embed);
-    phosphine_option_set_source_map_contents(opts, this->map_contents);
-    if (this->map_path != NULL) {
-    phosphine_option_set_source_map_file(opts, this->map_path);
-    phosphine_option_set_omit_source_map_url(opts, false);
-    phosphine_option_set_source_map_contents(opts, true);
-    }
-    if (this->map_root != NULL) {
-    phosphine_option_set_source_map_root(opts, this->map_root);
-    }
-
+	zend_parse_parameters_none();
+    RETURN_LONG((zend_long)hydro_random_u32());
 }
+
+
+PHP_METHOD(phosphine, ratchet)
+{
+	zend_parse_parameters_none();
+    hydro_random_ratchet();
+}
+
+
+PHP_METHOD(phosphine, reseed)
+{
+	zend_parse_parameters_none();
+    hydro_random_reseed();
+}
+
+
+
 
 /**
  * $phosphine->parse(string $source, [  ]);
