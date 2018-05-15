@@ -705,6 +705,15 @@ zend_class_entry *phosphine_get_exception_base(TSRMLS_D)
 ZEND_BEGIN_ARG_INFO(arginfo_phosphine_void, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO(arginfo_phosphine_32, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO(arginfo_phosphine_ratchet, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO(arginfo_phosphine_reseed, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_phosphine_compile, 0, 0, 1)
     ZEND_ARG_INFO(0, phosphine_string)
 ZEND_END_ARG_INFO()
@@ -747,6 +756,10 @@ ZEND_END_ARG_INFO()
     
 zend_function_entry phosphine_methods[] = {
     PHP_ME(phosphine,  __construct,       arginfo_phosphine_void,           ZEND_ACC_PUBLIC | ZEND_ACC_CTOR)
+    PHP_ME(phosphine,  u32,               arginfo_phosphine_u32,            ZEND_ACC_PUBLIC)
+    PHP_ME(phosphine,  ratchet,           arginfo_phosphine_ratchet,        ZEND_ACC_PUBLIC)
+    PHP_ME(phosphine,  reseed,            arginfo_phosphine_reseed,         ZEND_ACC_PUBLIC)
+
     PHP_ME(phosphine,  compile,           arginfo_phosphine_compile,        ZEND_ACC_PUBLIC)
     PHP_ME(phosphine,  compileFile,       arginfo_phosphine_compileFile,    ZEND_ACC_PUBLIC)
     PHP_ME(phosphine,  getStyle,          arginfo_phosphine_void,           ZEND_ACC_PUBLIC)
